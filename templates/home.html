@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Budget{% endblock %}
+{% block content %}
+  <ul class="unstyled">
+  {% for budget in budgets %}
+    <li>
+      <h2>{{ budget.title|e }} <small>{{ budget.description|e }}</small></h2>
+      <table class="table table-striped table-hover">
+      {% for item in budget.items %}
+        <tr>
+          <td>{{ item.description|e }}</td>
+          <td>{{ item.amount|number_format(2)|e }}</td>
+        </tr>
+      {%endfor %}
+        <tr class="{% if budget.overrun %}error{% else %}info{% endif %}">
+          <td></td>
+	  <td class="span1">{{ budget.total|number_format(2)|e }}</td>
+        </tr>
+      </table>
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}

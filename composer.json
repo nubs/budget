@@ -1,0 +1,20 @@
+{
+    "name": "nubs/budget",
+    "description": "Web-based transactional budgeting software.",
+    "keywords": ["budget"],
+    "authors": [
+        {
+            "name": "Spencer Rinehart",
+            "email": "anubis@overthemonkey.com",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "~5.4",
+        "ext-mcrypt": "*",
+        "slim/slim": "~2.2",
+        "slim/extras": "~2.0",
+        "twig/twig": "~1.13"
+    }
+}
