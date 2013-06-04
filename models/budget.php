@@ -11,5 +11,12 @@ return function(MongoDB $db) {
                 return $budget;
             }, iterator_to_array($collection->find($conditions)));
         },
+        'addItem' => function($id, array $item) use($collection) {
+            if (empty($item['description']) || empty($item['amount'])) {
+                throw new Exception('You must enter both a description and an amount.');
+            }
+
+            $collection->update(['_id' => new MongoID($id)], ['$push' => ['items' => $item]]);
+        },
     ];
 };

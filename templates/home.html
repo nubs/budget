@@ -12,9 +12,18 @@
           <td>{{ item.amount|number_format(2)|e }}</td>
         </tr>
       {%endfor %}
+        <tr>
+          <form method="post" action="/budgets/{{budget._id}}/transactions">
+            <td><input type="text" class="input-block-level" name="description" placeholder="Description" /></td>
+            <td class="input-append">
+              <input type="text" name="amount" placeholder="Amount" />
+              <button type="submit" class="btn">Save</button>
+            </td>
+          </form>
+        </tr>
         <tr class="{% if budget.overrun %}error{% else %}info{% endif %}">
           <td></td>
-	  <td class="span1">{{ budget.total|number_format(2)|e }}</td>
+          <td class="span1">{{ budget.total|number_format(2)|e }}</td>
         </tr>
       </table>
     </li>

@@ -5,4 +5,7 @@ return function(\Slim\Slim $app, array $models, array $middleware) {
 
     $homeRoute = require 'routes/home.php';
     $homeRoute($app, $models['budget'], $middleware['auth']);
+
+    $transactionsRoute = require 'routes/transactions.php';
+    $transactionsRoute($app, $models['budget'], $middleware['auth']);
 };
