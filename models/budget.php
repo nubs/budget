@@ -13,7 +13,7 @@ return function(MongoDB $db) {
                 $budget['overrun'] = $budget['total'] > 0;
 
                 return $budget;
-            }, iterator_to_array($collection->find($conditions)));
+            }, iterator_to_array($collection->find($conditions)->sort(['title' => 1])));
         },
         'findOne' => $findOne,
         'addItem' => function($id, array $item) use($collection) {
