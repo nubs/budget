@@ -10,4 +10,9 @@ return function(\Slim\Slim $app, array $budgetModel, callable $auth) {
 
         $app->redirect($app->urlFor('home'));
     });
+
+    $app->delete('/budgets/:budgetId/transactions/:transactionId', $auth, function($budgetId, $transactionId) use($app, $budgetModel) {
+        $budgetModel['removeItem']($budgetId, $transactionId);
+        $app->redirect($app->urlFor('home'));
+    });
 };

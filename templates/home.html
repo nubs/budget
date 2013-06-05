@@ -6,10 +6,16 @@
     <li>
       <h2>{{ budget.title|e }} <small>{{ budget.description|e }}</small></h2>
       <table class="table table-striped table-hover">
-      {% for item in budget.items %}
+      {% for key, item in budget.items %}
         <tr>
           <td>{{ item.description|e }}</td>
-          <td>{{ item.amount|number_format(2)|e }}</td>
+          <td>
+            <form method="post" action="/budgets/{{budget._id}}/transactions/{{key}}">
+              <input type="hidden" name="_METHOD" value="DELETE" />
+              {{ item.amount|number_format(2)|e }}
+              <button class="close">&times;</button>
+            </form>
+          </td>
         </tr>
       {%endfor %}
         <tr>
