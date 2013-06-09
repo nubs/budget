@@ -22,7 +22,7 @@
           <form method="post" action="/budgets/{{budget._id}}/transactions">
             <td><input type="text" class="input-block-level" name="description" placeholder="Description" /></td>
             <td class="input-append">
-              <input type="text" name="amount" placeholder="Amount" />
+              <input type="number" step="0.01" name="amount" placeholder="Amount" />
               <button type="submit" class="btn">Save</button>
             </td>
           </form>
