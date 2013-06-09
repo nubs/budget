@@ -29,7 +29,13 @@
         </tr>
         <tr class="{% if budget.overrun %}error{% else %}info{% endif %}">
           <td></td>
-          <td class="span1">{{ budget.total|number_format(2)|e }}</td>
+          <td class="span1">
+            <form method="post" action="/budgets/{{budget._id}}/transactions">
+              <input type="hidden" name="snapshot" value="true" />
+              {{ budget.total|number_format(2)|e }}
+              <button class="close"><img src="/snapshot.png" /></button>
+            </form>
+          </td>
         </tr>
       </table>
     </li>
