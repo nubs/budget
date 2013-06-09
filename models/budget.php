@@ -13,7 +13,7 @@ return function(MongoDB $db) {
                 $budget['overrun'] = $budget['polarity'] * $budget['total'] > 0;
 
                 return $budget;
-            }, iterator_to_array($collection->find($conditions)->sort(['polarity' => 1, 'title' => 1])));
+            }, iterator_to_array($collection->find($conditions)->sort(['polarity' => -1, 'title' => 1])));
         },
         'findOne' => $findOne,
         'addItem' => function($id, array $item) use($collection) {
