@@ -1,41 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Budget{% endblock %}
 {% block content %}
-  <ul class="unstyled">
   {% for budget in budgets %}
-    <li>
-      <h2>{{ budget.title|e }} <small>{{ budget.description|e }}</small></h2>
-      <dl class="dl-horizontal">
+    <h2>{{ budget.title|e }} <small>{{ budget.description|e }}</small></h2>
+    <div class="items">
       {% for key, item in budget.items %}
-        <dt>{{ item.amount|number_format(2)|e }}</dt>
-        <dd>
-          <form method="post" action="/budgets/{{budget._id}}/transactions/{{key}}">
+        <div class="row">
+          <div class="span9">
             {{ item.description|e }}
+          </div>
+          <form class="span3 text-right" method="post" action="/budgets/{{budget._id}}/transactions/{{key}}">
+            <strong>{{ item.amount|number_format(2)|e }}</strong>
             <input type="hidden" name="_METHOD" value="DELETE" />
             <button class="close">&times;</button>
           </form>
-        </dd>
+        </div>
       {%endfor %}
-      </dl>
+    </div>
+    <form class="row" method="post" action="/budgets/{{budget._id}}/transactions">
+      <div class="span9"><input type="text" class="input-xxlarge" name="description" placeholder="Description" /></div>
+      <div class="input-append span3 text-right">
+        <input type="number" class="input-small" step="0.01" name="amount" placeholder="Amount" />
+        <button type="submit" class="btn">Save</button>
+      </div>
+    </form>
+    <div class="row alert alert-{% if budget.overrun %}error{% else %}info{% endif %} text-right">
       <form method="post" action="/budgets/{{budget._id}}/transactions">
-        <dl class="dl-horizontal">
-          <dt><input type="number" class="input-small" step="0.01" name="amount" placeholder="Amount" /></dt>
-          <dd class="input-append">
-            <input type="text" class="input-xx-large pull-left" name="description" placeholder="Description" />
-            <button type="submit" class="btn">Save</button>
-          </dd>
-        </dl>
+        <strong>{{ budget.total|number_format(2)|e }}</strong>
+        <input type="hidden" name="snapshot" value="true" />
+        <button class="close"><img src="/snapshot.png" /></button>
       </form>
-      <dl class="dl-horizontal">
-        <dt>{{ budget.total|number_format(2)|e }}</dt>
-        <dd>
-          <form method="post" action="/budgets/{{budget._id}}/transactions">
-            <input type="hidden" name="snapshot" value="true" />
-            <button class="close"><img src="/snapshot.png" /></button>
-          </form>
-        </dd>
-      </dl>
-    </li>
+    </div>
   {% endfor %}
-  </ul>
 {% endblock %}
